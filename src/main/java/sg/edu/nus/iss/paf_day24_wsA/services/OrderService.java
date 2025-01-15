@@ -27,7 +27,7 @@ public class OrderService {
 
 
     @Transactional
-    public boolean processOrder(Order order) {
+    public int processOrder(Order order) {
 
         // insert the order
         int generatedOrderId = insertOrder(order);
@@ -39,6 +39,15 @@ public class OrderService {
             insertOrderDetail(orderDetail);
         }
 
-        return true;        
+        return generatedOrderId;
+    }
+
+
+    public Order retrieveOrderById(int orderId) {
+
+        
+
+        return null;
+
     }
 }
