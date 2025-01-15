@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.nus.iss.paf_day24_wsA.models.Order;
 import sg.edu.nus.iss.paf_day24_wsA.models.OrderDetail;
+import sg.edu.nus.iss.paf_day24_wsA.models.OrderSummary;
 import sg.edu.nus.iss.paf_day24_wsA.repositories.OrderRepository;
 
 @Service
@@ -43,11 +44,13 @@ public class OrderService {
     }
 
 
-    public Order retrieveOrderById(int orderId) {
+    public OrderSummary createOrderSummary(Order order, int orderId) {
 
         
+        OrderSummary orderSummary = new OrderSummary();
 
-        return null;
-
+        return orderSummary;
     }
+
+
 }

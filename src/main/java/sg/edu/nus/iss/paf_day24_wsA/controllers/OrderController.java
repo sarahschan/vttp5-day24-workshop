@@ -37,9 +37,12 @@ public class OrderController {
 
         int orderId = orderService.processOrder(order);
 
-        Order processedOrder = orderService.retrieveOrderById(orderId);
+        
 
-        model.addAttribute("order", processedOrder);
+
+
+        model.addAttribute("order", order);
+        model.addAttribute("orderId", orderId);
 
         return "orderOverview";
     }

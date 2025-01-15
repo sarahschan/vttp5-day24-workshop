@@ -21,7 +21,7 @@ create table order_details(
     id int auto_increment,
     product varchar(64),
     unit_price decimal(3,2),
-    discount decimal(2,2) default 1.0,
+    discount decimal(3,2) default 1.0,
     quantity int,
     order_id int,
 

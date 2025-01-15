@@ -8,7 +8,51 @@
 <body>
     
     <div>
-        <h1>Your order ID #<span th:text="${order.orderId}"></span> has been processed</h1>
+        <h1>Your order ID #<span th:text="${orderId}"></span> has been processed</h1>
     </div>
+
+    <table>
+        <tr>
+            <th>Order Date</th>
+            <tr th:text="${order.orderDate}"></tr>
+        </tr>
+        <tr>
+            <th>Customer Name</th>
+            <tr th:text="${order.customerName}"></tr>
+        </tr>
+        <tr>
+            <th>Shipping Address</th>
+            <tr th:text="${order.shipAddress}"></tr>
+        </tr>
+        <tr>
+            <th>Notes</th>
+            <tr th:text="${order.notes}"></tr>
+        </tr>
+    </table>
+
+    <br>
+
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Unit Price</th>
+            <th>Discount</th>
+            <th>Final Price</th>
+            <th>Quantity</th>
+            <th>Total Item Price</th>            
+        </tr>
+        <tr th:each=" orderDetail : ${order.orderDetail}"></tr>
+            <td th:text="${orderDetail.product}"></td>
+            <td th:text="${orderDetail.unitPrice}"></td>
+            <td th:text="${orderDetail.discount}"></td>
+            <td th:text="${#numbers.formatDecimal(orderDetail.unitPrice * (1 - orderDetail.discount), 2, 'POINT',  ',')}"></td>
+            <td th:text="${orderDetail.quantity}"></td>
+            <td th:text="${#numbers.formatDecimal(orderDetail.quantity * orderDetail.unitPrice * (1 - orderDetail.discount), 2, 'POINT',  ',')}"></td>
+    </table>
+
+    <h3>Total Price (before taxes): $<span //math here// ></span></h3>
+    <h3>Taxes: <span th:text="{order.tax}"></span></h3>
+
+    <h3>Grand Total: $<span //math here//></span></h3>
 </body>
 </html>
