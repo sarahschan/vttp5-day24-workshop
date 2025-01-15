@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -11,9 +13,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import sg.edu.nus.iss.paf_day24_wsA.models.exceptions.*;
+import sg.edu.nus.iss.paf_day24_wsA.models.FullOrderDetail;
 import sg.edu.nus.iss.paf_day24_wsA.models.Order;
 import sg.edu.nus.iss.paf_day24_wsA.models.OrderDetail;
 
@@ -74,5 +78,25 @@ public class OrderRepository {
             throw new UnableToInsertOrderDetailException("Unable to insert order detail in DB");
         }
         
+    }
+
+
+    public List<FullOrderDetail> getFullOrderDetails(int orderId) {
+        
+        try {
+
+            SqlRowSet rs = jdbcTemplate.queryForRowSet(Queries.SQL_GET_FULL_ORDER_DETAIL_BY_ID, orderId);
+
+            List<FullOrderDetail> fullOrderDetails = new ArrayList<>();
+
+            while (rs.next()){
+                fullOrderDetails.add(FullOrderDetail.toFullOrderDetail(rs));
+            }
+
+            return fullOrderDetails;
+
+        } catch (DataAccessException error) {
+            throw new UnableToRetrieveFullOrderDetailsException("Unable to retrieve full order details for order ID " + orderId);
+        }
     }
 }

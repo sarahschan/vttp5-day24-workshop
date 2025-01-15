@@ -18,4 +18,26 @@ public class Queries {
             values
                 (?, ?, ?, ?, ?)
         """;
+
+
+    public static final String SQL_GET_FULL_ORDER_DETAIL_BY_ID = 
+        """
+            select id,
+                   product,
+                   unit_price as unitPrice,
+                   discount,
+                   discount_price as discountPrice,
+                   quantity,
+                   quantity * discount_Price as itemPrice
+            from (
+                select id,
+                       product,
+                       unit_price,
+                       discount,
+                       unit_price * (1 - discount) as discount_price,
+                       quantity
+                  from order_details
+                  where order_id = ?
+            ) as subquery;
+        """;
 }

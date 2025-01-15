@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.nus.iss.paf_day24_wsA.models.Order;
+import sg.edu.nus.iss.paf_day24_wsA.models.OrderSummary;
 import sg.edu.nus.iss.paf_day24_wsA.services.OrderService;
 import sg.edu.nus.iss.paf_day24_wsA.util.OrderUtil;
 
@@ -33,17 +34,13 @@ public class OrderController {
     public String processOrder(@RequestParam MultiValueMap<String, String> data, Model model) {
 
         Order order = orderUtil.createOrder(data);
-        System.out.println(order);
 
         int orderId = orderService.processOrder(order);
 
-        
+        OrderSummary orderSummary = orderService.createOrderSummary(order, orderId);
 
+        model.addAttribute("orderSummary", orderSummary);
 
-
-        model.addAttribute("order", order);
-        model.addAttribute("orderId", orderId);
-
-        return "orderOverview";
+        return "orderSummary";
     }
 }

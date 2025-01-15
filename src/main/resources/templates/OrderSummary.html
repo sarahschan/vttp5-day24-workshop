@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Submitted</title>
+</head>
+<body>
+    
+    <div>
+        <h1>Your order ID #<span th:text="${orderSummary.orderId}"></span> has been processed</h1>
+    </div>
+
+    <table>
+        <tr>
+            <th>Order Date</th>
+            <td></td>
+            <td th:text="${orderSummary.orderDate}"></td>
+        </tr>
+        <tr>
+            <th>Customer Name</th>
+            <td></td>
+            <td th:text="${orderSummary.customerName}"></td>
+        </tr>
+        <tr>
+            <th>Shipping Address</th>
+            <td></td>
+            <td th:text="${orderSummary.shipAddress}"></td>
+        </tr>
+        <tr>
+            <th>Notes</th>
+            <td></td>
+            <td th:text="${orderSummary.notes}"></td>
+        </tr>
+    </table>
+
+    <br>
+
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Unit Price</th>
+            <th>Discount</th>
+            <th>Final Price</th>
+            <th>Quantity</th>
+            <th>Total Item Price</th>            
+        </tr>
+        <tr th:each="fullOrderDetail : ${orderSummary.fullOrderDetails}">
+            <td th:text="${fullOrderDetail.product}"></td>
+            <td th:text="${fullOrderDetail.unitPrice}"></td>
+            <td th:text="${fullOrderDetail.discount}"></td>
+            <td th:text="${fullOrderDetail.discountPrice}"></td>
+            <td th:text="${fullOrderDetail.quantity}"></td>
+            <td th:text="${fullOrderDetail.itemPrice}"></td>
+        </tr>
+            
+    </table>
+    
+    <br>
+
+    <h4>Total Before Taxes: $<span th:text="${orderSummary.orderTotalBeforeTax}"></span></h6>
+    <h4>Taxes: $<span th:text="${orderSummary.tax}"></span></h6>
+
+    <h2>Grand Total: $<span th:text="${orderSummary.orderTotalAfterTax}"></span></h4>
+
+    <br>
+
+    <a th:href="@{/order}">Create New Order</a>
+    
+</body>
+</html>

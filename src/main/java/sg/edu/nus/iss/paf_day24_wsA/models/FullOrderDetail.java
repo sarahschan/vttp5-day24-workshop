@@ -26,6 +26,15 @@ public class FullOrderDetail {
         this.itemPrice = itemPrice;
     }
 
+    
+    @Override
+    public String toString() {
+        return "FullOrderDetail [id=" + id + ", product=" + product + ", unitPrice=" + unitPrice + ", discount="
+                + discount + ", discountPrice=" + discountPrice + ", quantity=" + quantity + ", itemPrice=" + itemPrice
+                + "]";
+    }
+
+    
     public int getId() {
         return id;
     }
@@ -70,7 +79,7 @@ public class FullOrderDetail {
     }
 
     
-    public FullOrderDetail toFullOrderDetail(SqlRowSet rs) {
+    public static FullOrderDetail toFullOrderDetail(SqlRowSet rs) {
         
         FullOrderDetail fod = new FullOrderDetail();
             fod.setId(rs.getInt("id"));

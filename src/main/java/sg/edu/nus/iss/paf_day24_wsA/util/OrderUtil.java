@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 
+import sg.edu.nus.iss.paf_day24_wsA.models.FullOrderDetail;
 import sg.edu.nus.iss.paf_day24_wsA.models.Order;
 import sg.edu.nus.iss.paf_day24_wsA.models.OrderDetail;
 
@@ -55,5 +56,23 @@ public class OrderUtil {
         }
 
         return orderDetails;
+    }
+
+
+    public float calculateOrderTotalBeforeTax(List<FullOrderDetail> fullOrderDetails){
+
+        float orderTotalBeforeTax = 0;
+        
+        for (FullOrderDetail fod : fullOrderDetails) {
+            orderTotalBeforeTax += fod.getItemPrice();
+        }
+
+        return orderTotalBeforeTax;
+    }
+
+
+    public float calculateOrderTotalAfterTax(float orderTotalBeforeTax, float tax) {
+        float grandTotal = orderTotalBeforeTax * (1 + tax); 
+        return grandTotal;
     }
 }
